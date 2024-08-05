@@ -1,0 +1,62 @@
+Assignment-2 Documentation :
+
+Team members: 
+SV.Viswajit(cs21b079), G.Sai Pradhyumna(CS21B026)
+---------------------------------------------------------------------------------------------------
+Problem-division:
+Pradhyumna done 1st question,
+Viswajit done 2nd question.
+We both have done 3rd question discussing each other.
+----------------------------------------------------------------------------------------
+Solution Approach for question-3:
+1.Client Handling:
+		Upon accepting a client connection, the server prompts the client to enter a unique username.
+		If the maximum number of clients has not been reached and the entered username is unique, the client is added to the list of active clients.
+	
+2.Multithreading:
+		Each client connection is handled in a separate thread to allow concurrent communication with multiple clients.
+		When a new client connects, a new thread is created to handle that client.
+	
+3.Client Interaction:
+		Clients can send messages to the server, which are then broadcasted to all other clients in the chat room.
+		Clients can also use special commands like \list to view the list of users currently in the chat room and \bye to leave the chat room.
+		
+4.Timeout Handling:
+		The server sets a timeout for each client socket to detect if a client has left the chat room or if there's a network issue.
+		If a client's socket times out, the server removes the client from the list of active clients and broadcasts a message indicating that the 	client has left the chat room.
+		
+5.Broadcasting:
+		The broadcast() function sends a message to all clients except the sender.
+		This function is called whenever a client sends a message or leaves the chat room.
+		
+6.Clean Exit:
+		The server gracefully handles client disconnections by removing the client from the list of active clients and closing the client socket.
+--------------------------------------
+Implementation details:
+
+ClientInfo Structure:
+		This structure holds information about each client connected to the server.
+		It contains the client's socket file descriptor and their username.
+		
+Global Variables:
+clients: 	An array of ClientInfo structures to store information about connected clients.
+mutex: 		A mutex lock to ensure thread safety when accessing shared resources.
+client_count: 	An integer to keep track of the number of connected clients.
+timeout_seconds: An integer representing the timeout duration for client connections.
+
+Broadcast Function:
+broadcast: 	This function sends a message to all clients except the sender.
+		It acquires a lock on the mutex before broadcasting the message to ensure thread safety.
+		
+Client Handling Thread Function (fun):
+		This function is executed in a separate thread for each client connection.
+		It receives messages from the client, handles special commands (\list, \bye), and broadcasts messages to other clients.
+		It sets a timeout on the client socket to disconnect inactive clients.
+		If a client disconnects or times out, it removes the client from the list and closes the socket.
+-------------------------------------------------------------------------------------------------------
+Assumptions for question-3:
+we did not face any ambiguity while solving this question.
+-------------------------------------------------------------------------------------------------------
+External References Used:
+1) Took reference from the Internet, asking it to give a basic idea on how to solve the question.
+2) Discussed with friends on some built-in functions that we don't know in c.

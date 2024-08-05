@@ -1,0 +1,65 @@
+Assignment-2 Documentation :
+
+Team members: 
+SV.Viswajit(cs21b079), G.Sai Pradhyumna(CS21B026)
+---------------------------------------------------------------------------------------------------
+Problem-division:
+Pradhyumna done 1st question,
+Viswajit done 2nd question.
+We both have done 3rd question discussing each other.
+----------------------------------------------------------------------------------------
+Solution Approach for question-2:
+1.Client Handling:
+		Upon accepting a client connection, the program creates a new thread to handle the client request concurrently.
+		It reads the client's request and extracts the request method (GET or POST) and the requested resource from the request.
+		
+2.GET Request Handling:
+		For GET requests, the program checks if the requested resource exists in the root directory.
+		If the resource exists, it determines the MIME type based on the file extension and sends the file content with appropriate headers.
+		If the requested resource is not found, it serves the 404.html page.
+		
+3.POST Request Handling:
+		For POST requests, the program extracts the POST data from the request.
+		It counts the number of characters, words, and sentences in the POST data.
+		Then, it constructs an HTML response containing the count results and sends it back to the client.
+		
+4.Multithreading:
+		The program handles each client request in a separate thread to enable concurrent processing.
+		Upon accepting a client connection, it creates a new thread using pthread_create() to handle the client request.
+		
+5.Thread Function:
+		The handle_client() function is responsible for processing client requests.
+		It receives the client socket file descriptor, request method, requested resource, and request buffer as arguments.
+		Depending on the request method (GET or POST), it calls the appropriate handler function (handle_GET_request() or handle_POST_request()).
+		
+6.Usage:
+		The program can be run with two command-line arguments: the port to listen on and the root directory containing files to serve.
+
+--This is the approach followed by us.
+------------------------------------------------------------------------------------------------------
+Implementation details:
+1) Constants:
+BUFFER_SIZE: 	Defines the size of the buffer used for reading data from the socket and storing file paths.
+DEFAULT_HTML: 	Specifies the default HTML file to serve when no specific resource is requested.
+NOT_FOUND_HTML: 	Specifies the HTML file to serve when a requested resource is not found (404 error).
+
+2) Global Variables:
+root_directory: 	Stores the root directory from which the server serves files.
+
+3) Struct Definition:
+ThreadArgs: 	Defines a structure to pass multiple arguments to the thread function. It includes arguments such as client socket, request method, requested 			resource, and request buffer.
+
+4)Thread Creation and Request Handling:
+		Uses pthread_create to create a new thread for each incoming client connection.
+		Passes the required arguments to the thread function using the ThreadArgs structure.
+		Handles both GET and POST requests using separate functions (handle_GET_request and handle_POST_request).
+------------------------------------------------------------------------------------------------------
+Assumptions for question-2:
+1) we also considered space and \n as characters while counting the number of characters.
+2) If we post the text "hi.hello" , in this case we assumed the number of sentences to be 2, and also if the text is "hi.hello." the number of sentences is 2.
+3) If the text have many words in the text, we are getting seg fault we tried to write the code for that but couldn't.
+-------------------------------------------------------------------------------------------------------
+External References Used:
+1) Took reference from the Internet, asking it to give a basic idea on how to solve the question.
+2) Discussed with friends on some built-in functions that we don't know in c.
+

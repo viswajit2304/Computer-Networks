@@ -1,0 +1,49 @@
+Assignment-2 Documentation :
+
+Team members: 
+SV.Viswajit(cs21b079), G.Sai Pradhyumna(CS21B026)
+---------------------------------------------------------------------------------------------------
+Problem-division:
+Pradhyumna done 1st question,
+Viswajit done 2nd question.
+We both have done 3rd question discussing each other.
+----------------------------------------------------------------------------------------
+Solution Approach for question-1:
+1. Socket Initialization:
+		The program initializes a TCP socket to listen for incoming connections.
+		It sets up the server address details and binds the socket to the specified port.
+
+2. Listening for Connections:
+		The program starts listening for incoming connections from clients.
+		It accepts new connections using the accept function when a client attempts to connect.
+
+3.Handling Multiple Connections:
+		The server has a maximum limit (max_connections) on the number of simultaneous connections it can handle.
+		It maintains an active_connections count to track the number of active client connections.
+		The server uses a mutex (mutex) to ensure thread safety when accessing shared resources, such as the active connections count.
+
+4.Client Handling Thread:
+		Each accepted client connection is handled in a separate thread to allow concurrent processing.
+		The handle_client function is responsible for processing client requests. It receives the client socket file descriptor and the music 					 directory path as arguments.
+
+5.Receiving Song Number:
+		Upon connection, the server expects the client to send a song number indicating which song the client wants to receive.
+
+6.Sending Song Data:
+		The server opens the requested song file and sends its data to the client in chunks.
+		It reads the file in chunks and sends each chunk to the client until the entire file is transmitted.
+		After sending the file, the server closes the file descriptor and the client socket.
+
+7.Client IP Logging:
+		The server logs the IP address of each connected client for monitoring and tracking purposes.
+
+8.Rejecting New Connections:
+		If the maximum number of connections (max_connections) is reached, the server rejects new connections and waits for a brief period before checking again.
+-- This is the Approach followed by us.
+------------------------------------------------
+Assumptions for question-1:
+		We are facing an issue here, in viswajits(ubuntu) laptop its working fine, but in pradhyumna's(macos) laptop when a client code is stopped the server code is also stopped, we tried to find the bug, but couldn't, we even talked to TA and they said its fine if it is working in one laptop.
+-------------------------------------------------------------------------------------------------------
+External References Used:
+1) Took reference from the Internet, asking it to give a basic idea on how to solve the question.
+2) Discussed with friends on some built-in functions that we don't know in c.
